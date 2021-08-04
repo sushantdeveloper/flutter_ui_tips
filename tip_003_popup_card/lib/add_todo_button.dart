@@ -55,9 +55,19 @@ const String _heroAddTodo = 'add-todo-hero';
 ///
 /// Uses a [Hero] with tag [_heroAddTodo].
 /// {@endtemplate}
-class _AddTodoPopupCard extends StatelessWidget {
+class AddTodoPopupCard extends StatefulWidget {
   /// {@macro add_todo_popup_card}
-  const _AddTodoPopupCard({Key key}) : super(key: key);
+  AddTodoPopupCard({Key? key}) : super(key: key);
+
+  @override
+  _AddTodoPopupCardState createState() => _AddTodoPopupCardState();
+}
+
+class StatefulWidget {}
+
+class _AddTodoPopupCardState extends State<AddTodoPopupCard> {
+  /// {@macro add_todo_popup_card}
+  GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -76,40 +86,45 @@ class _AddTodoPopupCard extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'New todo',
-                        border: InputBorder.none,
-                      ),
-                      cursorColor: Colors.white,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Form(
+                    key = _form,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextFormField(
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            labelText: "Title",
+                          ),
+                          cursorColor: Colors.white,
+                          controller: _titleTextController,
+                        ),
+                        const Divider(
+                          color: Colors.white,
+                          thickness: 0.2,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            labelText: "Title",
+                          ),
+                          cursorColor: Colors.white,
+                          controller: _titleTextController,
+                        ),
+                        const Divider(
+                          color: Colors.white,
+                          thickness: 0.2,
+                        ),
+                        FlatButton(
+                          onPressed: () {},
+                          child: const Text('Add'),
+                        ),
+                      ],
                     ),
-                    const Divider(
-                      color: Colors.white,
-                      thickness: 0.2,
-                    ),
-                    const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Write a note',
-                        border: InputBorder.none,
-                      ),
-                      cursorColor: Colors.white,
-                      maxLines: 6,
-                    ),
-                    const Divider(
-                      color: Colors.white,
-                      thickness: 0.2,
-                    ),
-                    FlatButton(
-                      onPressed: () {},
-                      child: const Text('Add'),
-                    ),
-                  ],
-                ),
-              ),
+                  )),
             ),
           ),
         ),
